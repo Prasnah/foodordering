@@ -19,25 +19,28 @@ import java.util.Optional;
 public class ResturantService {
     ResturantRepo resturantRepo;
     OrderingStratergy orderingStratergy;
-    public ResturantService(){
+
+    public ResturantService() {
         resturantRepo = new ResturantRepo();
     }
+
     public void onBoardResturant(@NonNull final Restuarant restuarant) throws ResturantAlreadyExitsException {
-       List<Restuarant> allResturants  = fetchAllResturants();
-       Optional<Restuarant> restuarantExists = allResturants.stream().filter(_restuarant -> restuarant.getName().equals(_restuarant.getName())).findAny();
-       if(restuarantExists.isPresent()){
-           throw new ResturantAlreadyExitsException();
-       }
-       resturantRepo.addRestuarant(restuarant);
+        List<Restuarant> allResturants = fetchAllResturants();
+        Optional<Restuarant> restuarantExists = allResturants.stream().filter(_restuarant -> restuarant.getName().equals(_restuarant.getName())).findAny();
+        if (restuarantExists.isPresent()) {
+            throw new ResturantAlreadyExitsException();
+        }
+        resturantRepo.addRestuarant(restuarant);
     }
-    public List<Restuarant> fetchAllResturants(){
+
+    public List<Restuarant> fetchAllResturants() {
         return resturantRepo.fetchAllRestuarant();
     }
 
     public Restuarant placeOrder(@NonNull final Order order) throws NoMatchingResturantFound {
-        List<Restuarant> allResturants  = fetchAllResturants();
-        Restuarant selectedRestuarant = findResturant(order,allResturants);
-        if(selectedRestuarant == null){
+        List<Restuarant> allResturants = fetchAllResturants();
+        Restuarant selectedRestuarant = findResturant(order, allResturants);
+        if (selectedRestuarant == null) {
             throw new NoMatchingResturantFound("No Matching Resturant Found");
         }
         selectedRestuarant.getOrders().add(order);
@@ -47,15 +50,15 @@ public class ResturantService {
     }
 
     public OrderSummary completeOrder(@NonNull final Order order) throws InvalidOrderCompleteRequest {
-        if(order.getOrderStatus().equals(Status.COMPLETED)){
+        if (order.getOrderStatus().equals(Status.COMPLETED)) {
             throw new InvalidOrderCompleteRequest();
         }
         order.setOrderStatus(Status.COMPLETED);
-        OrderSummary orderSummary = new OrderSummary(order.getRestuarant(), order);
-        return orderSummary;
+        return new OrderSummary(order.getRestuarant(), order);
     }
-    private Restuarant findResturant(@NonNull final Order order,@NonNull final List<Restuarant> allResturants){
-        if(order.getOrderStrategy().equals(OrderStrategy.LOW_COST)){
+
+    private Restuarant findResturant(@NonNull final Order order, @NonNull final List<Restuarant> allResturants) {
+        if (order.getOrderStrategy().equals(OrderStrategy.LOW_COST)) {
             orderingStratergy = new LowestCost();
         }
         return orderingStratergy.findResturant(order, allResturants);

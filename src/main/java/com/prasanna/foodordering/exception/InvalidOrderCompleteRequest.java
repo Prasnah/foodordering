@@ -1,4 +1,4 @@
 package com.prasanna.foodordering.exception;
 
-public class InvalidOrderCompleteRequest extends Exception{
+public class InvalidOrderCompleteRequest extends Exception {
 }

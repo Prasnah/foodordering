@@ -7,6 +7,6 @@ import lombok.NonNull;
 import java.util.List;
 
 public interface OrderingStratergy {
-    public Restuarant findResturant(@NonNull Order order, @NonNull List<Restuarant> restuarants);
-    }
+    Restuarant findResturant(@NonNull Order order, @NonNull List<Restuarant> restuarants);
+}
 

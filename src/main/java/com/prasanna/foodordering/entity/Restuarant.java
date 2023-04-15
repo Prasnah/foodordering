@@ -15,7 +15,7 @@ public class Restuarant {
     private double ratings;
     private List<Order> orders;
 
-    public Restuarant(String _name, int _maximumOrders, Map<String, Double> _menu, double _ratings, List<Order> _orders){
+    public Restuarant(String _name, int _maximumOrders, Map<String, Double> _menu, double _ratings, List<Order> _orders) {
         this.name = _name;
         this.menu = _menu;
         this.maximumOrders = _maximumOrders;

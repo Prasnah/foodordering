@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Map;
+
 @Getter
 @Setter
 public class Order {
@@ -14,7 +15,8 @@ public class Order {
     private Restuarant restuarant;
     private Status orderStatus;
     private OrderStrategy orderStrategy;
-    public Order(String _user,Map<String,Integer> _items,OrderStrategy _orderStrategy){
+
+    public Order(String _user, Map<String, Integer> _items, OrderStrategy _orderStrategy) {
         this.user = _user;
         this.items = _items;
         this.orderStrategy = _orderStrategy;
